@@ -1,0 +1,83 @@
+<div class="profile-page">
+
+  <header class="profile-header">
+    <a routerLink="/dashboard" class="back-link">← Dashboard</a>
+
+    <div class="brand">🛡️ SafeTravel</div>
+
+    <h1>My Profile</h1>
+    <p>Manage your account and explore your travel activities.</p>
+  </header>
+
+  <main class="profile-container">
+
+    <section class="profile-card">
+
+      <div class="avatar">
+        {{ displayName.charAt(0).toUpperCase() }}
+      </div>
+
+      <h2>{{ displayName }}</h2>
+      <p class="email">{{ displayEmail }}</p>
+
+      <span class="account-badge">✓ SafeTravel Account</span>
+
+      <div class="profile-divider"></div>
+
+      <div class="detail-row">
+        <span>👤 Account Name</span>
+        <strong>{{ displayName }}</strong>
+      </div>
+
+      <div class="detail-row">
+        <span>📧 Email Address</span>
+        <strong>{{ displayEmail }}</strong>
+      </div>
+
+      <div class="detail-row">
+        <span>🔐 Login Status</span>
+        <strong>{{ user ? 'Logged in' : 'User information unavailable' }}</strong>
+      </div>
+
+      <button class="logout-btn" (click)="logout()">
+        Log Out
+      </button>
+
+    </section>
+
+    <section class="quick-links">
+
+      <h2>Your Travel Activities</h2>
+
+      <a routerLink="/destinations" class="activity-card">
+        <span>🗺️</span>
+        <div>
+          <h3>Explore Destinations</h3>
+          <p>Discover places to visit around the world.</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a routerLink="/travel-plans" class="activity-card">
+        <span>🧳</span>
+        <div>
+          <h3>My Travel Plans</h3>
+          <p>View and manage your saved trips.</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a routerLink="/alerts" class="activity-card">
+        <span>🚨</span>
+        <div>
+          <h3>Safety Alerts</h3>
+          <p>Review destination safety information.</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+    </section>
+
+  </main>
+
+</div>

@@ -1,0 +1,92 @@
+<div class="destinations-page">
+
+  <!-- HEADER -->
+<div class="page-header">
+    <button class="back-btn" type="button" (click)="goBack()">
+      ← Dashboard
+    </button>
+
+    <div class="brand">🛡️ SafeTravel</div>
+
+    <h1>Explore the World</h1>
+
+    <p>
+      Discover amazing destinations and plan your next journey with safety in mind.
+    </p>
+
+    <input
+      class="search-box"
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search destinations or countries..."
+      aria-label="Search destinations or countries"
+    />
+
+</div>
+
+  <!-- DESTINATION CONTENT -->
+  <main class="destination-container">
+
+    <div class="section-heading">
+      <h2>Popular Destinations</h2>
+
+      <span>{{ filteredDestinations.length }} destinations</span>
+    </div>
+
+    <!-- DESTINATION GRID -->
+    <div class="destination-grid">
+
+      <article
+        class="destination-card"
+        *ngFor="let destination of filteredDestinations">
+
+        <div class="image-container">
+
+          <img
+            [src]="destination.image || fallbackImage"
+            [alt]="destination.name"
+            (error)="handleImageError($event)"
+            loading="lazy"
+          />
+
+          <span class="country-badge">
+            {{ destination.country }}
+          </span>
+
+        </div>
+
+        <div class="card-content">
+
+          <h3>{{ destination.name }}</h3>
+
+          <p class="description">
+            {{ destination.description }}
+          </p>
+
+          <button
+            class="safety-btn"
+            type="button"
+            (click)="checkSafety(destination.name)">
+            🛡️ Check Safety
+          </button>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <!-- EMPTY SEARCH RESULTS -->
+    <div
+      class="no-results"
+      *ngIf="filteredDestinations.length === 0">
+
+      <h3>No destinations found</h3>
+
+      <p>Try searching for another destination or country.</p>
+
+    </div>
+
+  </main>
+
+</div>

@@ -1,0 +1,280 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f3f7fb;
+  color: #1e293b;
+  font-family: Arial, sans-serif;
+}
+
+.alerts-header {
+  padding: 28px 7% 55px;
+  color: white;
+  text-align: center;
+  background: linear-gradient(135deg, #064e3b, #0f766e, #0e7490);
+}
+
+.back-link {
+  display: inline-block;
+  float: left;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+}
+
+.brand {
+  clear: both;
+  padding-top: 25px;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.alerts-header h1 {
+  margin: 20px 0 12px;
+  font-size: clamp(30px, 5vw, 46px);
+}
+
+.alerts-header p {
+  color: #d1fae5;
+  line-height: 1.6;
+}
+
+.alerts-container {
+  width: min(100% - 32px, 1050px);
+  margin: -25px auto 0;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.search-card,
+.results-section,
+.empty-intro {
+  margin-bottom: 25px;
+  padding: 28px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 6px 25px rgba(15, 23, 42, 0.07);
+}
+
+.search-card h2 {
+  margin-top: 0;
+}
+
+.search-form {
+  display: flex;
+  gap: 12px;
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-form input:focus {
+  border-color: #0f766e;
+}
+
+.search-form button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 9px;
+  background: #047857;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.search-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.error-message {
+  color: #b91c1c;
+}
+
+.loading-message {
+  color: #0369a1;
+}
+
+.results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.eyebrow {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.results-heading h2 {
+  margin: 8px 0 0;
+  font-size: 30px;
+}
+
+.risk-badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.high-risk {
+  border-color: #fecaca;
+}
+
+.risk-badge.high-risk {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.moderate-risk {
+  border-color: #fde68a;
+}
+
+.risk-badge.moderate-risk {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.low-risk {
+  border-color: #a7f3d0;
+}
+
+.risk-badge.low-risk {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.unknown-risk {
+  border-color: #cbd5e1;
+}
+
+.risk-badge.unknown-risk {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.filter-bar label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.filter-bar select {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+}
+
+.alerts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.alert-card {
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-left-width: 5px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.alert-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.alert-icon {
+  font-size: 30px;
+}
+
+.alert-card h3 {
+  margin: 18px 0 10px;
+  font-size: 20px;
+}
+
+.alert-card p {
+  margin-bottom: 0;
+  color: #64748b;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.empty-state,
+.empty-intro {
+  padding: 35px 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.empty-intro {
+  margin-top: 25px;
+}
+
+.empty-intro h2 {
+  color: #1e293b;
+}
+
+.intro-icon {
+  font-size: 48px;
+}
+
+.disclaimer {
+  margin-top: 25px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-form button {
+    width: 100%;
+  }
+
+  .alerts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search-card,
+  .results-section {
+    padding: 20px;
+  }
+
+  .filter-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

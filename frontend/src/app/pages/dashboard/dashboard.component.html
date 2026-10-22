@@ -1,0 +1,275 @@
+<div class="dashboard">
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+    <div class="logo">
+      🛡️ SafeTravel
+    </div>
+
+<div class="nav-links">
+  <a
+    routerLink="/dashboard"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">
+    Dashboard
+  </a>
+
+  <a routerLink="/destinations">Destinations</a>
+  <a routerLink="/travel-plans">Travel Plans</a>
+  <a routerLink="/alerts">Alerts</a>
+  <a routerLink="/profile">Profile</a>
+</div>
+
+<button class="login-btn" (click)="logout()">Logout</button>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-content">
+
+  <p class="subtitle">
+    TRAVEL SMART • TRAVEL SAFE
+  </p>
+
+  <h1>
+    Know the risks.<br>
+    <span>Travel with confidence.</span>
+  </h1>
+
+  <p class="description">
+    Get safety information about weather, health, political
+    conditions and natural disasters before you travel.
+  </p>
+
+  <!-- DESTINATION SEARCH -->
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="destination"
+      placeholder="Enter your destination..."
+      (keyup.enter)="checkSafety()"
+    />
+
+    <button (click)="checkSafety()">
+      Check Safety
+    </button>
+  </div>
+
+  <!-- ERROR OR STATUS MESSAGE -->
+  <p class="safety-message" *ngIf="safetyMessage">
+    {{ safetyMessage }}
+  </p>
+
+  <!-- SAFETY REPORT -->
+  <div class="safety-result" *ngIf="showSafetyResult">
+
+    <!-- DESTINATION IMAGE -->
+    <div class="safety-result-image">
+    <img
+  [src]="destinationImage"
+  [alt]="safetyData?.destination || 'Destination image'"
+  (error)="handleDestinationImageError($event)"
+/>
+    </div>
+
+    <!-- REPORT HEADER -->
+    <div class="result-header">
+      <div>
+        <p class="section-label">SAFETY REPORT</p>
+        <h2>{{ safetyData?.destination }}</h2>
+      </div>
+
+      <span
+        class="overall-status"
+        [ngClass]="{
+          'low-risk': safetyData?.overallRisk === 'Low Risk',
+          'moderate-risk': safetyData?.overallRisk === 'Moderate',
+          'high-risk': safetyData?.overallRisk === 'High Risk'
+        }">
+        ● Overall: {{ safetyData?.overallRisk }}
+      </span>
+    </div>
+
+    <!-- SAFETY RESULT CARDS -->
+    <div class="result-cards">
+
+      <!-- WEATHER -->
+      <div class="result-card">
+        <div class="result-icon">🌦️</div>
+
+        <div>
+          <h3>Weather</h3>
+
+          <strong
+            [ngClass]="{
+              'risk-low': safetyData?.weather?.risk === 'Low Risk',
+              'risk-moderate': safetyData?.weather?.risk === 'Moderate',
+              'risk-high': safetyData?.weather?.risk === 'High Risk'
+            }">
+            {{ safetyData?.weather?.risk }}
+          </strong>
+
+          <p>{{ safetyData?.weather?.message }}</p>
+
+          <p class="weather-details">
+            🌡️ {{ safetyData?.weather?.temperature }}°C
+            &nbsp; | &nbsp;
+            💧 {{ safetyData?.weather?.humidity }}%
+            <br>
+            🌧️ {{ safetyData?.weather?.precipitation }} mm
+            &nbsp; | &nbsp;
+            💨 {{ safetyData?.weather?.windSpeed }} km/h
+          </p>
+        </div>
+      </div>
+
+      <!-- HEALTH -->
+      <div class="result-card">
+        <div class="result-icon">🏥</div>
+
+        <div>
+          <h3>Health</h3>
+
+          <strong
+            [ngClass]="{
+              'risk-low': safetyData?.health?.risk === 'Low Risk',
+              'risk-moderate': safetyData?.health?.risk === 'Moderate',
+              'risk-high': safetyData?.health?.risk === 'High Risk'
+            }">
+            {{ safetyData?.health?.risk }}
+          </strong>
+
+          <p>{{ safetyData?.health?.message }}</p>
+        </div>
+      </div>
+
+      <!-- POLITICAL CONDITIONS -->
+      <div class="result-card">
+        <div class="result-icon">🌍</div>
+
+        <div>
+          <h3>Political</h3>
+
+          <strong
+            [ngClass]="{
+              'risk-low': safetyData?.political?.risk === 'Low Risk',
+              'risk-moderate': safetyData?.political?.risk === 'Moderate',
+              'risk-high': safetyData?.political?.risk === 'High Risk'
+            }">
+            {{ safetyData?.political?.risk }}
+          </strong>
+
+          <p>{{ safetyData?.political?.message }}</p>
+        </div>
+      </div>
+
+      <!-- NATURAL DISASTERS -->
+      <div class="result-card">
+        <div class="result-icon">🌪️</div>
+
+        <div>
+          <h3>Natural Disasters</h3>
+
+          <strong
+            [ngClass]="{
+              'risk-low': safetyData?.naturalDisasters?.risk === 'Low Risk',
+              'risk-moderate': safetyData?.naturalDisasters?.risk === 'Moderate',
+              'risk-high': safetyData?.naturalDisasters?.risk === 'High Risk'
+            }">
+            {{ safetyData?.naturalDisasters?.risk }}
+          </strong>
+
+          <p>{{ safetyData?.naturalDisasters?.message }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+  </section>
+
+  <!-- POPULAR DESTINATIONS -->
+
+  <section class="destinations-section">
+
+
+<div class="section-header">
+  <div>
+    <span class="section-label">EXPLORE</span>
+
+    <h2>Popular Destinations</h2>
+
+    <p>
+      Discover beautiful places with safety information before you travel.
+    </p>
+  </div>
+
+  <a routerLink="/destinations" class="view-all">
+    View All Destinations →
+  </a>
+</div>
+
+<div class="destination-grid">
+
+  <!-- KERALA -->
+  <div class="destination-card">
+    <div class="destination-image kerala">
+      <span class="destination-badge">Low Risk</span>
+    </div>
+
+    <div class="destination-content">
+      <h3>Kerala</h3>
+      <p>God's Own Country</p>
+
+      <div class="destination-info">
+        <span>🌤️ Favorable weather</span>
+        <span>🛡️ Explore safely</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOA -->
+  <div class="destination-card">
+    <div class="destination-image goa">
+      <span class="destination-badge">Low Risk</span>
+    </div>
+
+    <div class="destination-content">
+      <h3>Goa</h3>
+      <p>Beaches &amp; adventure</p>
+
+      <div class="destination-info">
+        <span>☀️ Coastal destination</span>
+        <span>🛡️ Explore safely</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANALI -->
+  <div class="destination-card">
+    <div class="destination-image manali">
+      <span class="destination-badge">Low Risk</span>
+    </div>
+
+    <div class="destination-content">
+      <h3>Manali</h3>
+      <p>Mountains &amp; nature</p>
+
+      <div class="destination-info">
+        <span>🏔️ Mountain destination</span>
+        <span>🛡️ Explore safely</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+  </section>
+
+</div>

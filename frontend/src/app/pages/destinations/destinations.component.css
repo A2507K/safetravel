@@ -1,0 +1,338 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f1f5f9;
+  color: #1e293b;
+  font-family: Arial, sans-serif;
+}
+
+/* Page header */
+.page-header {
+  position: relative;
+  padding: 40px 7% 55px;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #064e3b, #0f766e, #0e7490);
+}
+
+.brand {
+  margin: 0 0 25px;
+  font-size: 25px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.page-header h1 {
+  margin: 15px 0;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.page-header p {
+  max-width: 650px;
+  margin: 0 auto 28px;
+  color: #e0f2fe;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 11px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Search */
+.search-box {
+  display: block;
+  width: min(90%, 520px);
+  margin: 0 auto;
+  padding: 16px 20px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 15px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-box:focus {
+  border-color: #5eead4;
+  box-shadow: 0 0 0 4px rgba(94, 234, 212, 0.2);
+}
+
+/* Main content */
+.destination-container {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 42px 24px 65px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.section-heading span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Destination grid */
+.destination-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 26px;
+}
+
+/* Destination cards */
+.destination-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 32px rgba(15, 23, 42, 0.14);
+}
+
+/* Important: images are direct children of destination-card
+   in your current HTML. */
+.destination-card > img {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: 210px;
+  min-height: 210px;
+  max-height: 210px;
+  object-fit: cover;
+  object-position: center;
+  background: #dbeafe;
+  transition: transform 0.35s ease;
+}
+
+.destination-card:hover > img {
+  transform: scale(1.03);
+}
+
+/* Destination titles and descriptions */
+.destination-card h3 {
+  margin: 20px 20px 10px;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.destination-card p {
+  margin: 0 20px 14px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.destination-card p:nth-of-type(2) {
+  color: #0f766e;
+  font-weight: 700;
+}
+
+/* Safety button */
+.safety-btn,
+.destination-card button {
+  display: block;
+  width: calc(100% - 40px);
+  margin: auto 20px 20px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #047857, #0f766e);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.destination-card button:hover {
+  background: linear-gradient(135deg, #065f46, #115e59);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(4, 120, 87, 0.22);
+}
+
+.destination-card button:focus-visible,
+.back-btn:focus-visible {
+  outline: 3px solid #2dd4bf;
+  outline-offset: 3px;
+}
+
+/* Image wrapper rules, if used elsewhere in the template */
+.image-container {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background: #dbeafe;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.card-content p {
+  margin: 0 0 16px;
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.card-content .safety-btn {
+  width: 100%;
+  margin: 8px 0 0;
+}
+
+.country-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Empty search results */
+.no-results {
+  padding: 50px 15px;
+  text-align: center;
+  color: #64748b;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .destination-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .destination-container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .page-header {
+    padding: 30px 20px 40px;
+  }
+
+  .brand {
+    font-size: 22px;
+  }
+
+  .destination-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .destination-container {
+    padding: 30px 16px 45px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .destination-card > img {
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+  }
+}
+/* Restore the missing destinations page header */
+
+.destinations-page {
+  display: block;
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+/* Page header */
+.page-header {
+display: block;
+position: relative;
+width: 100%;
+box-sizing: border-box;
+padding: 40px 7% 55px;
+text-align: center;
+color: #ffffff;
+background: linear-gradient(135deg, #064e3b, #0f766e, #0e7490);
+}
+
+.page-header h1 {
+margin: 15px 0;
+font-size: clamp(32px, 5vw, 52px);
+font-weight: 800;
+letter-spacing: -1px;
+}
+
+.page-header p {
+max-width: 650px;
+margin: 0 auto 28px;
+color: #e0f2fe;
+line-height: 1.8;
+font-size: 16px;
+}
+
+@media (max-width: 768px) {
+.page-header {
+padding: 30px 20px 40px;
+}
+}

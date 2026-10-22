@@ -1,0 +1,380 @@
+<div class="admin-layout">
+
+  <aside class="sidebar">
+    <div class="brand">🛡️ SafeTravel</div>
+    <p class="sidebar-label">ADMINISTRATION</p>
+
+    <a routerLink="/admin" class="nav-item active">📊 Dashboard</a>
+    <a routerLink="/dashboard" class="nav-item">🌍 Travel Dashboard</a>
+    <a routerLink="/destinations" class="nav-item">🗺️ Destinations</a>
+    <a routerLink="/travel-plans" class="nav-item">✈️ Travel Plans</a>
+    <a routerLink="/alerts" class="nav-item">🚨 Safety Alerts</a>
+
+    <button class="logout-button" (click)="logout()">↪ Logout</button>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Manage your SafeTravel platform.</p>
+      </div>
+      <div class="admin-badge">🛡️ Administrator</div>
+    </header>
+
+    <section class="welcome-banner">
+      <div>
+        <p class="eyebrow">SAFE TRAVEL MANAGEMENT</p>
+        <h2>Welcome, {{ adminName }}! 👋</h2>
+        <p>Manage registered users and travel destinations.</p>
+      </div>
+      <div class="welcome-icon">🌍</div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-grid">
+
+      <article class="stat-card">
+        <div class="stat-icon users-icon">👥</div>
+        <div>
+          <p>Total Registered Users</p>
+          <h3>{{ totalUsers }}</h3>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon admins-icon">🛡️</div>
+        <div>
+          <p>Administrators</p>
+          <h3>{{ totalAdmins }}</h3>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon destinations-icon">🌏</div>
+        <div>
+          <p>Destinations</p>
+          <h3>{{ destinations.length }}</h3>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon alerts-icon">🚨</div>
+        <div>
+          <p>Safety Alerts</p>
+          <h3>—</h3>
+          <small>Not connected yet</small>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Destination Management -->
+    <section class="users-section destination-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>🌍 Destination Management</h2>
+          <p>Add and manage destinations stored in your database.</p>
+        </div>
+
+        <div class="destination-actions">
+          <button
+            class="refresh-button"
+            (click)="loadDestinations()"
+            [disabled]="isDestinationsLoading">
+            ↻ Refresh
+          </button>
+
+          <button
+            class="add-destination-button"
+            (click)="openAddDestinationForm()">
+            + Add Destination
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="destinationSuccessMessage" class="success-box">
+        {{ destinationSuccessMessage }}
+      </div>
+
+      <div *ngIf="destinationErrorMessage" class="error-box">
+        {{ destinationErrorMessage }}
+      </div>
+
+      <!-- Add/Edit Form -->
+      <form
+        *ngIf="showDestinationForm"
+        class="destination-form"
+        #destinationNgForm="ngForm"
+        (ngSubmit)="saveDestination()">
+
+        <h3>
+          {{ editingDestinationId ? '✏️ Edit Destination' : '➕ Add New Destination' }}
+        </h3>
+
+        <div class="form-grid">
+
+          <label>
+            Destination Name *
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="destinationForm.name"
+              required
+              maxlength="100"
+              placeholder="e.g. Munnar">
+          </label>
+
+          <label>
+            Country *
+            <input
+              type="text"
+              name="country"
+              [(ngModel)]="destinationForm.country"
+              required
+              maxlength="100"
+              placeholder="e.g. India">
+          </label>
+
+          <label>
+            Category
+            <select
+              name="category"
+              [(ngModel)]="destinationForm.category">
+              <option value="General">General</option>
+              <option value="Nature">Nature</option>
+              <option value="Beach">Beach</option>
+              <option value="Hill Station">Hill Station</option>
+              <option value="Historical">Historical</option>
+              <option value="Adventure">Adventure</option>
+              <option value="City">City</option>
+              <option value="Religious">Religious</option>
+            </select>
+          </label>
+
+          <label class="full-width">
+            Tourism Image URL *
+            <input
+              type="url"
+              name="image"
+              [(ngModel)]="destinationForm.image"
+              required
+              placeholder="https://example.com/tourism-image.jpg">
+          </label>
+
+          <label class="full-width">
+            Description *
+            <textarea
+              name="description"
+              [(ngModel)]="destinationForm.description"
+              required
+              maxlength="1000"
+              rows="4"
+              placeholder="Describe the destination, attractions and scenery..."></textarea>
+          </label>
+
+        </div>
+
+        <!-- Image Preview -->
+        <div class="image-preview-area" *ngIf="destinationForm.image.trim()">
+          <p>Image Preview</p>
+
+          <img
+            [src]="destinationForm.image"
+            alt="Destination preview"
+            (error)="($any($event.target)).style.display='none'"
+            (load)="($any($event.target)).style.display='block'">
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="cancelDestinationForm()">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="add-destination-button"
+            [disabled]="destinationNgForm.invalid || isSavingDestination">
+            {{
+              isSavingDestination
+                ? 'Saving...'
+                : editingDestinationId
+                  ? 'Update Destination'
+                  : 'Save Destination'
+            }}
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Search Destinations -->
+      <div class="search-box">
+        <span>🔎</span>
+        <input
+          type="text"
+          placeholder="Search destinations by name, country, or category..."
+          [(ngModel)]="destinationSearchTerm">
+      </div>
+
+      <div *ngIf="isDestinationsLoading" class="message-box">
+        Loading destinations...
+      </div>
+
+      <div
+        *ngIf="!isDestinationsLoading && !destinationErrorMessage && filteredDestinations.length === 0"
+        class="message-box">
+        No destinations found. Add your first destination above.
+      </div>
+
+      <!-- Destination Cards -->
+      <div
+        class="destination-grid"
+        *ngIf="!isDestinationsLoading && filteredDestinations.length > 0">
+
+        <article
+          class="destination-card"
+          *ngFor="let destination of filteredDestinations">
+
+          <div class="destination-image-wrapper">
+            <img
+              [src]="destination.image"
+              [alt]="destination.name"
+              loading="lazy"
+              (error)="($any($event.target)).style.display='none'">
+
+            <span class="category-badge">
+              {{ destination.category || 'General' }}
+            </span>
+          </div>
+
+          <div class="destination-card-body">
+            <h3>{{ destination.name }}</h3>
+            <p class="destination-country">📍 {{ destination.country }}</p>
+            <p class="destination-description">{{ destination.description }}</p>
+
+            <div class="destination-card-actions">
+              <button
+                type="button"
+                class="edit-button"
+                (click)="editDestination(destination)">
+                ✏️ Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteDestination(destination)">
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- Registered Users -->
+    <section class="users-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>👥 Registered Users</h2>
+          <p>Accounts retrieved from your database.</p>
+        </div>
+
+        <button
+          class="refresh-button"
+          (click)="loadUsers()"
+          [disabled]="isLoading">
+          ↻ Refresh
+        </button>
+      </div>
+
+      <div class="search-box">
+        <span>🔎</span>
+        <input
+          type="text"
+          placeholder="Search by name, email, or role..."
+          [(ngModel)]="searchTerm">
+      </div>
+
+      <div *ngIf="isLoading" class="message-box">
+        Loading registered users...
+      </div>
+
+      <div *ngIf="!isLoading && errorMessage" class="error-box">
+        {{ errorMessage }}
+        <button (click)="loadUsers()">Try again</button>
+      </div>
+
+      <div
+        *ngIf="!isLoading && !errorMessage && filteredUsers.length === 0"
+        class="message-box">
+        No users found.
+      </div>
+
+      <div
+        *ngIf="!isLoading && !errorMessage && filteredUsers.length > 0"
+        class="table-wrapper">
+
+        <table>
+          <thead>
+            <tr>
+              <th>USER</th>
+              <th>EMAIL ADDRESS</th>
+              <th>ROLE</th>
+              <th>REGISTERED ON</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of filteredUsers">
+              <td>
+                <div class="user-cell">
+                  <div class="avatar">
+                    {{ (user.name || user.email || 'U').charAt(0).toUpperCase() }}
+                  </div>
+                  <strong>{{ user.name || 'Unnamed User' }}</strong>
+                </div>
+              </td>
+
+              <td>{{ user.email }}</td>
+
+              <td>
+                <span
+                  class="role-badge"
+                  [ngClass]="user.role === 'admin' ? 'admin-role' : 'user-role'">
+                  {{ user.role }}
+                </span>
+              </td>
+
+              <td>
+                {{ user.createdAt ? (user.createdAt | date:'dd MMM yyyy') : 'N/A' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div
+        *ngIf="!isLoading && !errorMessage && filteredUsers.length > 0"
+        class="table-footer">
+        Showing {{ filteredUsers.length }} of {{ totalUsers }} users
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      SafeTravel Admin Panel · Travel smarter, travel safer.
+    </footer>
+
+  </main>
+</div>

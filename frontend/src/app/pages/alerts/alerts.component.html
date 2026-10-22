@@ -1,0 +1,118 @@
+<div class="alerts-page">
+
+  <header class="alerts-header">
+    <a routerLink="/dashboard" class="back-link">← Dashboard</a>
+
+    <div class="brand">🛡️ SafeTravel</div>
+
+    <h1>Travel Safety Alerts</h1>
+
+    <p>
+      Review destination risk information before planning your journey.
+    </p>
+  </header>
+
+  <main class="alerts-container">
+
+    <section class="search-card">
+      <h2>🔎 Check Destination Risks</h2>
+
+      <form (ngSubmit)="checkAlerts()" class="search-form">
+        <input
+          type="text"
+          name="destination"
+          [(ngModel)]="destination"
+          placeholder="Enter a destination, e.g. Kerala"
+          aria-label="Destination"
+          required
+        />
+
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Checking...' : 'Check Safety' }}
+        </button>
+      </form>
+
+      <p *ngIf="errorMessage" class="error-message" role="alert">
+        {{ errorMessage }}
+      </p>
+
+      <p *ngIf="loading" class="loading-message" aria-live="polite">
+        Retrieving safety information...
+      </p>
+    </section>
+
+    <section *ngIf="searchedDestination" class="results-section">
+
+      <div class="results-heading">
+        <div>
+          <span class="eyebrow">DESTINATION REPORT</span>
+          <h2>{{ searchedDestination }}</h2>
+        </div>
+
+        <span
+          class="risk-badge"
+          [ngClass]="riskClass(overallRisk)"
+        >
+          Overall: {{ overallRisk }}
+        </span>
+      </div>
+
+      <div class="filter-bar">
+        <label for="riskFilter">Filter by risk:</label>
+
+        <select id="riskFilter" name="riskFilter" [(ngModel)]="filterRisk">
+          <option value="All">All categories</option>
+          <option value="High Risk">High Risk</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Low Risk">Low Risk</option>
+          <option value="Unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div class="alerts-grid">
+
+        <article
+          *ngFor="let alert of filteredAlerts"
+          class="alert-card"
+          [ngClass]="riskClass(alert.risk)"
+        >
+          <div class="alert-top">
+            <span class="alert-icon">{{ alert.icon }}</span>
+
+            <span class="risk-badge" [ngClass]="riskClass(alert.risk)">
+              {{ alert.risk }}
+            </span>
+          </div>
+
+          <h3>{{ alert.category }}</h3>
+
+          <p>{{ alert.message }}</p>
+        </article>
+
+      </div>
+
+      <div *ngIf="filteredAlerts.length === 0" class="empty-state">
+        <h3>No matching categories</h3>
+        <p>Choose another risk filter to see more information.</p>
+      </div>
+
+      <p class="disclaimer">
+        This report reflects the information currently returned by the
+        SafeTravel backend. It is not a verified live emergency-alert feed.
+        Check official local authorities and travel advisories before travel.
+      </p>
+
+    </section>
+
+    <section *ngIf="!searchedDestination && !loading" class="empty-intro">
+      <div class="intro-icon">🛡️</div>
+      <h2>Stay informed before you travel</h2>
+      <p>
+        Enter a destination above to review its available weather,
+        health, political-safety, and natural-disaster risk information.
+      </p>
+    </section>
+
+  </main>
+
+</div>

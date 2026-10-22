@@ -1,0 +1,80 @@
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="logo">🛡️ SafeTravel</div>
+
+    <h1>Welcome Back!</h1>
+
+    <p class="subtitle">
+      Log in to travel smarter and safer.
+    </p>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+          email
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <p class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <p class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <button
+        type="submit"
+        [disabled]="isLoading || loginForm.invalid"
+      >
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+   
+<div class="signup-section">
+  <p>Don't have an account?</p>
+
+  <button
+    type="button"
+    class="signup-button"
+    (click)="goToRegister()">
+    Sign Up
+  </button>
+</div>
+
+
+
+
+
+    </form>
+
+    <p class="footer-text">
+      Travel smart. Travel safe. 🌍
+    </p>
+
+  </div>
+</div>

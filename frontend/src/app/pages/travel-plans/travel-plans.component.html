@@ -1,0 +1,142 @@
+<div class="travel-page">
+
+  <header class="travel-header">
+    <a routerLink="/dashboard" class="back-link">← Dashboard</a>
+
+    <div class="brand">🛡️ SafeTravel</div>
+
+    <h1>Plan Your Next Adventure</h1>
+
+    <p>Organise your trips and keep your travel details in one place.</p>
+  </header>
+
+  <main class="travel-container">
+
+    <section class="form-card">
+      <h2>✈️ Create a Travel Plan</h2>
+
+      <form (ngSubmit)="savePlan()" #planForm="ngForm">
+
+        <div class="form-group">
+          <label for="destination">Destination *</label>
+          <input
+            id="destination"
+            type="text"
+            name="destination"
+            [(ngModel)]="destination"
+            placeholder="e.g. Kerala, Paris, Tokyo"
+            required
+          />
+        </div>
+
+        <div class="date-grid">
+
+          <div class="form-group">
+            <label for="startDate">Departure Date *</label>
+            <input
+              id="startDate"
+              type="date"
+              name="startDate"
+              [(ngModel)]="startDate"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="endDate">Return Date *</label>
+            <input
+              id="endDate"
+              type="date"
+              name="endDate"
+              [(ngModel)]="endDate"
+              [min]="startDate || null"
+              required
+            />
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="travelers">Number of Travellers *</label>
+          <input
+            id="travelers"
+            type="number"
+            name="travelers"
+            [(ngModel)]="travelers"
+            min="1"
+            max="100"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Travel Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            [(ngModel)]="notes"
+            rows="4"
+            placeholder="Add hotel details, activities, or reminders..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="save-btn">
+          + Save Travel Plan
+        </button>
+
+      </form>
+
+      <p
+        *ngIf="message"
+        class="message"
+        aria-live="polite"
+      >
+        {{ message }}
+      </p>
+    </section>
+
+    <section class="saved-section">
+      <div class="section-title">
+        <h2>📍 My Travel Plans</h2>
+        <span>{{ plans.length }} saved</span>
+      </div>
+
+      <div *ngIf="plans.length === 0" class="empty-state">
+        <div class="empty-icon">🧳</div>
+        <h3>No travel plans yet</h3>
+        <p>Create your first plan using the form above.</p>
+      </div>
+
+      <article
+        *ngFor="let plan of plans"
+        class="plan-card"
+      >
+        <div class="plan-icon">🌍</div>
+
+        <div class="plan-details">
+          <h3>{{ plan.destination }}</h3>
+
+          <p>
+            📅 {{ plan.startDate }} to {{ plan.endDate }}
+          </p>
+
+          <p>👥 {{ plan.travelers }} traveller(s)</p>
+
+          <p *ngIf="plan.notes">📝 {{ plan.notes }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="delete-btn"
+          (click)="deletePlan(plan.id)"
+          [attr.aria-label]="'Delete plan for ' + plan.destination"
+        >
+          Delete
+        </button>
+      </article>
+
+    </section>
+
+  </main>
+
+</div>
