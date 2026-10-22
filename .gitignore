@@ -1,24 +1,32 @@
-# Protect secrets
+# Protect environment variables and secrets
 .env
 .env.*
 !.env.example
+**/.env
+**/.env.*
 
 # Dependencies
 node_modules/
 **/node_modules/
 
-# Angular build files
+# Angular build output and cache
 dist/
 **/dist/
 .angular/
 **/.angular/
 
 # Logs
+logs/
 *.log
 npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# Editor and operating system files
+# Editor settings
 .vscode/
 .idea/
+
+# Operating system files
 .DS_Store
 Thumbs.db
+desktop.ini
