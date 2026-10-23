@@ -16,7 +16,7 @@ export interface Destination {
 })
 export class DestinationService {
 
-private apiUrl = 'https://safetravel-duau.onrender.com/api/destinations';
+private apiUrl = 'https://safetravel-backend-api.onrender.com/api/destinations';
   constructor(private http: HttpClient) {}
 
   getDestinations(): Observable<Destination[]> {

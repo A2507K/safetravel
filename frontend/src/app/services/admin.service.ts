@@ -37,7 +37,7 @@ export interface AdminDestinationsResponse {
   providedIn: 'root'
 })
 export class AdminService {
-private apiUrl = 'https://safetravel-duau.onrender.com/api/admin';
+private apiUrl = 'https://safetravel-backend-api.onrender.com/api/admin';
   constructor(private http: HttpClient) {}
 
   // Authentication headers

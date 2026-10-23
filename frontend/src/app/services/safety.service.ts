@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SafetyService {
 
-private apiUrl = 'https://safetravel-duau.onrender.com';
+private apiUrl = 'https://safetravel-backend-api.onrender.com';
   constructor(private http: HttpClient) {}
 
   checkSafety(destination: string) {

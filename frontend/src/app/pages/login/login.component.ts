@@ -19,7 +19,7 @@ export class LoginComponent {
   successMessage = '';
   isLoading = false;
 
-private apiUrl = 'https://safetravel-duau.onrender.com/api/auth';
+private apiUrl = 'https://safetravel-backend-api.onrender.com/api/auth';
   constructor(
     private http: HttpClient,
     private router: Router
