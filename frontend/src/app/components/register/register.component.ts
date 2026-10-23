@@ -23,8 +23,7 @@ export class RegisterComponent {
   successMessage = '';
   isLoading = false;
 
-  private apiUrl = 'http://localhost:3000/api/auth/register';
-
+private apiUrl = 'https://safetravel-duau.onrender.com/api/auth/register';
   constructor(
     private http: HttpClient,
     private router: Router

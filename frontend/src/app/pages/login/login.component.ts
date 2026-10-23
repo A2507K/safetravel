@@ -19,8 +19,7 @@ export class LoginComponent {
   successMessage = '';
   isLoading = false;
 
-  private apiUrl = 'http://localhost:3000/api/auth';
-
+private apiUrl = 'https://safetravel-duau.onrender.com/api/auth';
   constructor(
     private http: HttpClient,
     private router: Router

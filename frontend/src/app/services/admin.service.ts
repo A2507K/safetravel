@@ -37,8 +37,7 @@ export interface AdminDestinationsResponse {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:3000/api/admin';
-
+private apiUrl = 'https://safetravel-duau.onrender.com/api/admin';
   constructor(private http: HttpClient) {}
 
   // Authentication headers
